@@ -14,6 +14,9 @@ import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,9 +52,15 @@ public class PromptGenerateController {
     }
 
     @GetMapping
-    public String generate(String prompt) throws IOException {
+    public ResponseEntity<String> generate(String prompt) throws IOException {
         String analyzerResponse = promptAnalyzer(prompt);
-        return generate(analyzerResponse, 0, new ArrayList<>());
+        String generate = generate(analyzerResponse, 0, new ArrayList<>());
+        // 设置响应头
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(org.springframework.http.MediaType.parseMediaType("text/markdown; charset=utf-8"));
+
+        // 返回带有响应头的响应
+        return new ResponseEntity<>(generate, headers, HttpStatus.OK);
     }
 
     public String generate(String prompt, int count, List<AssistantMessage> messages) throws IOException {
