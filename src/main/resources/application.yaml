@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: chat
+  ai:
+    openai:
+      base-url: https://api.oaipro.com
+      api-key: ""
+      chat:
+        options:
+          model: gpt-4o-mini
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: qwen2.5-coder:7b-instruct
