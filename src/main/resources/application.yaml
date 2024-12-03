@@ -3,8 +3,8 @@ spring:
     name: chat
   ai:
     openai:
-      base-url: https://api.oaipro.com
-      api-key: ""
+      base-url: https://api.crond.dev
+      api-key: "sk-lG4mofdU8BGIgnd7CqACxOn5uWXepwMLrl8OZuAhpTvPSvzC"
       chat:
         options:
           model: gpt-4o-mini

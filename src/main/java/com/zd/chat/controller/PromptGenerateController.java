@@ -81,7 +81,7 @@ public class PromptGenerateController {
     /**
      * 多个角度批判性地分析和评估优化的提示
      *
-     * @param interactionSimulator 提示
+     * @param userMessage 提示
      * @return 多个角度批判性地分析和评估优化的提示
      * @throws IOException 读取异常
      */
@@ -123,7 +123,7 @@ public class PromptGenerateController {
     /**
      * 提示词增强
      *
-     * @param promptOptimizer 提示词强化结果
+     * @param userMessage 提示词强化结果
      * @return 提示词增强结果
      * @throws IOException 读取异常
      */
@@ -136,7 +136,7 @@ public class PromptGenerateController {
     /**
      * 提示词强化
      *
-     * @param analyzerResponse 提示词分析结果
+     * @param userMessage 提示词分析结果
      * @param messages
      * @return 提示词强化结果
      * @throws IOException 读取异常
@@ -150,7 +150,7 @@ public class PromptGenerateController {
     /**
      * 提示词分析
      *
-     * @param prompt 提示词
+     * @param userMessage 提示词
      * @return 提示词分析结果
      * @throws IOException 读取异常
      */

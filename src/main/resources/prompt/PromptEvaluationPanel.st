@@ -101,7 +101,7 @@ Before beginning the evaluation, carefully read and understand the original task
 After completing the evaluation process, compile your findings into a JSON object with the following structure , parameters use the camel nomenclature:
 
 {
-  "clarity_and_specificity": {
+  "clarityAndSpecificity": {
     "score": <integer 1-10>,
     "justification": "<string>",
     "improvementSuggestions": ["<string>", "<string>", ...]

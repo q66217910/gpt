@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.zd</groupId>
     <artifactId>chat</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>chat</name>
     <description>chat</description>
     <url/>
@@ -78,6 +78,25 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <goal>build-image</goal>
+                    <image>
+                        <name>registry.cn-shanghai.aliyuncs.com/koala888/${project.artifactId}:${project.version}</name>
+                        <tags>
+                            <tag>${project.version}</tag>
+                            <tag>latest</tag>
+                        </tags>
+                        <publish>false</publish>
+                    </image>
+                    <docker>
+                        <host>registry.cn-shanghai.aliyuncs.com</host>
+                        <context>.</context>
+                    </docker>
+                    <mainClass>com.zd.chat.ChatApplication</mainClass>
+                    <layers>
+                        <configuration>
+
+                        </configuration>
+                    </layers>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
