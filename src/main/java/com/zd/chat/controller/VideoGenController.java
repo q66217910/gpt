@@ -20,12 +20,12 @@ import java.util.List;
 @RequestMapping("video")
 public class VideoGenController {
 
-    private final ChatClient dashScopeChatClient;
+    private final OpenAiChatModel openAiChatModel;
 
     private final ApplicationContext applicationContext;
 
-    public VideoGenController(ChatClient dashScopeChatClient, ApplicationContext applicationContext) {
-        this.dashScopeChatClient = dashScopeChatClient;
+    public VideoGenController(OpenAiChatModel openAiChatModel, ApplicationContext applicationContext) {
+        this.openAiChatModel = openAiChatModel;
         this.applicationContext = applicationContext;
     }
 
@@ -42,11 +42,21 @@ public class VideoGenController {
      */
     private String storyScript() throws IOException {
         Resource resource = applicationContext.getResource("classpath:video/story.st");
-        return dashScopeChatClient.prompt(resource.getContentAsString(Charset.defaultCharset())).call().content();
+        AssistantMessage assistantMessage = new AssistantMessage(resource.getContentAsString(Charset.defaultCharset()));
+        return openAiChatModel.call(new Prompt(List.of(assistantMessage),
+                        ChatOptionsBuilder.builder()
+                                .withModel("gpt-4o")
+                                .build()))
+                .getResult().getOutput().getContent();
     }
 
     private String videoScript(String prompt) throws IOException {
         Resource resource = applicationContext.getResource("classpath:video/videoScript.st");
-        return dashScopeChatClient.prompt(resource.getContentAsString(Charset.defaultCharset())).user(prompt).call().content();
+        AssistantMessage assistantMessage = new AssistantMessage(resource.getContentAsString(Charset.defaultCharset()));
+        return openAiChatModel.call(new Prompt(List.of(assistantMessage,new UserMessage(prompt)),
+                        ChatOptionsBuilder.builder()
+                                .withModel("gpt-4o")
+                                .build()))
+                .getResult().getOutput().getContent();
     }
 }
